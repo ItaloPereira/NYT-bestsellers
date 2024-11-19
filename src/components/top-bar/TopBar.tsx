@@ -34,7 +34,7 @@ const TopBar = () => {
       <Container>
         <Toolbar disableGutters sx={{ justifyContent: 'center' }} variant="dense">
           <Logo href="/">
-            NYT Best Sellers
+            NYT Bestsellers
           </Logo>
         </Toolbar>
       </Container>
