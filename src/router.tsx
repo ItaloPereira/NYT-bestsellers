@@ -7,7 +7,12 @@ import ListPage from '@/pages/ListPage';
 
 const Router = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
+      }}
+    >
       <Routes>
         <Route path="/" element={<RootLayout />}>
           <Route index element={<HomePage />} />

@@ -1,14 +1,27 @@
+import { Helmet } from 'react-helmet-async';
+
 import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+
+import PageHeader from '@/components/page-header/PageHeader';
 
 const HomePage = () => {
   return (
-    <div>
-      <Container>
-        <h1>Hello, world!</h1>
-        <Button variant="contained" color="primary">Button</Button>
+    <main>
+      <Helmet>
+        <title>NYT Bestsellers Books</title>
+      </Helmet>
+
+      <Container sx={{ marginBlock: { xs: 5, md: 6 } }}>
+        <Stack gap={4}>
+          <PageHeader
+            title="The New York Times Best Sellers"
+            description="Authoritatively ranked lists of books sold in the United States, sorted by format and genre."
+          />
+
+        </Stack>
       </Container>
-    </div>
+    </main>
   );
 }
 

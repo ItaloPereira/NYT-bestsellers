@@ -1,4 +1,6 @@
 import { ThemeProvider } from '@mui/material/styles';
+import { HelmetProvider } from 'react-helmet-async';
+
 import defaultTheme from '@/themes/default';
 
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,10 +13,12 @@ import '@fontsource/work-sans';
 
 const App = () => {
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <CssBaseline />
-      <Router />
-    </ThemeProvider>
+    <HelmetProvider>
+      <ThemeProvider theme={defaultTheme}>
+        <CssBaseline />
+        <Router />
+      </ThemeProvider>
+    </HelmetProvider>
   )
 }
 
