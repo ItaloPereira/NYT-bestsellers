@@ -5,6 +5,7 @@ import Stack from '@mui/material/Stack';
 
 import PageHeader from '@/components/page-header/PageHeader';
 import OverviewGrid from '@/components/overview-grid/OverviewGrid';
+import AllListNames from '@/components/all-list-names/AllListNames';
 
 const HomePage = () => {
   return (
@@ -14,13 +15,14 @@ const HomePage = () => {
       </Helmet>
 
       <Container sx={{ marginBlock: { xs: 5, md: 6 } }}>
-        <Stack gap={2}>
+        <Stack gap={10}>
           <PageHeader
             title="The New York Times Best Sellers"
             description="Authoritatively ranked lists of books sold in the United States, sorted by format and genre."
           />
 
           <OverviewGrid />
+          <AllListNames />
         </Stack>
       </Container>
     </main>

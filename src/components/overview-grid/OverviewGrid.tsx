@@ -45,8 +45,7 @@ const OverviewGrid = () => {
     }
   };
 
-  if (isPending) return <OverviewGridSkeleton />;
-  if (isError || (!isPending && !data?.results)) return <Typography color="error" variant="h6" component="h2">Something went wrong... Try again later</Typography>;
+  if (isError || (!isPending && !data?.results)) return <Typography color="error" variant="h6" component="h2">Failed to load Bestsellers books. Try again later.</Typography>;
 
   return (
     <Stack gap={2}>
@@ -59,14 +58,16 @@ const OverviewGrid = () => {
         />
       )}
       <Stack gap={5}>
-        {data.results.lists.map((list: List) => (
-          <OverviewList
-            key={list.list_id}
-            name={list.display_name}
-            listKey={list.list_name_encoded}
-            books={list.books}
-          />
-        ))}
+        {isPending ? <OverviewGridSkeleton /> :
+          data.results.lists.map((list: List) => (
+            <OverviewList
+              key={list.list_id}
+              name={list.display_name}
+              listKey={list.list_name_encoded}
+              books={list.books}
+            />
+          ))
+        }
       </Stack>
     </Stack>
   )
