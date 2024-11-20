@@ -1,6 +1,8 @@
 import { createTheme, type ThemeOptions } from '@mui/material/styles';
 import type { LinkProps } from '@mui/material/Link';
 
+import LinkBehavior from './LinkBehavior';
+
 export const getDefaultTheme = (): ThemeOptions => {
   return {
     typography: {
@@ -23,6 +25,9 @@ export const getDefaultTheme = (): ThemeOptions => {
       h6: {
         fontFamily: `"Merriweather", serif`,
       },
+      subtitle1: {
+        fontFamily: `"Work Sans", sans-serif`,
+      }
     },
     palette: {
       mode: 'light',
@@ -37,8 +42,14 @@ export const getDefaultTheme = (): ThemeOptions => {
     components: {
       MuiLink: {
         defaultProps: {
+          component: LinkBehavior,
           underline: 'hover',
         } as LinkProps,
+        styleOverrides: {
+          root: {
+            fontFamily: `"Work Sans", sans-serif`,
+          }
+        }
       },
       MuiButton: {
         styleOverrides: {
