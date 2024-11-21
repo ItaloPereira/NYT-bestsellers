@@ -6,13 +6,32 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 
+import { persistQueryClient } from '@tanstack/react-query-persist-client';
+import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 60 * 24 * 1,
+      gcTime: 1000 * 60 * 60 * 24 * 1,
+    },
+  },
+});
+
+const localStoragePersister = createSyncStoragePersister({
+  storage: window.localStorage,
+});
+
+persistQueryClient({
+  queryClient,
+  persister: localStoragePersister,
+});
+
 import defaultTheme from '@/themes/default';
 
 interface AppProvidersProps {
   children: ReactNode;
 }
-
-const queryClient = new QueryClient();
 
 const AppProviders = ({ children }: AppProvidersProps) => {
   return (

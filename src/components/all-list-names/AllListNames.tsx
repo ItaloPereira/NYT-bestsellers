@@ -6,7 +6,9 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 
-import AllListNamesSkeleton from './AllListNamesSkeleton';
+import AllListNamesSkeleton from './AllListNamesSkeleton'
+
+import type { List } from '@/types/books';
 
 const AllListNames = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -47,7 +49,7 @@ const AllListNames = () => {
         fullWidth
       />
       <Stack gap={2}>
-        {filteredLists.map((list: { list_name: string; list_name_encoded: string; display_name: string }) => (
+        {filteredLists.map((list: List) => (
           <Link key={list.list_name_encoded} href={`/${list.list_name_encoded}`}>{list.display_name}</Link>
         ))}
       </Stack>

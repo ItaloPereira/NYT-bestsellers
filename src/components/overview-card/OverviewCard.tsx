@@ -21,35 +21,45 @@ interface OverviewCardProps {
   contributor: string;
   description: string;
   buyLinks: BuyLink[];
+  extended?: boolean;
 }
 
-const Card = styled(Stack)<StackProps>(({ theme }) => ({
+const Card = styled(Stack, {
+  shouldForwardProp: (prop) => prop !== 'extended',
+})<StackProps & { extended?: boolean }>(({ theme, extended }) => ({
   position: 'relative',
   gap: theme.spacing(2),
-  
+
   [theme.breakpoints.up('md')]: {
+    flexDirection: extended ? 'row' : 'column',
+    paddingBottom: extended ? theme.spacing(3) : 0,
     height: '100%',
-    paddingRight: theme.spacing(2),
+    paddingRight: extended ? 0 : theme.spacing(2),
   },
 }));
 
-const BookImage = styled('img')(({ theme }) => ({
-  display: 'none',
+const BookImage = styled('img', {
+  shouldForwardProp: (prop) => prop !== 'extended',
+})<{ extended?: boolean }>(({ theme, extended }) => ({
+  inlineSize: 45,
+  blockSize: 70,
+  objectFit: 'contain',
+  objectPosition: 'center',
 
   [theme.breakpoints.up('md')]: {
     display: 'block',
-    inlineSize: '100%',
-    blockSize: 175,
-    objectFit: 'contain',
-    objectPosition: 'center',
+    inlineSize: extended ? 100 : '100%',
+    blockSize: extended ? 150 : 175,
   },
 }));
 
-const BookRank = styled(Typography)<TypographyProps>(({ theme }) => ({
+const BookRank = styled(Typography, {
+  shouldForwardProp: (prop) => prop !== 'extended',
+})<TypographyProps & { extended?: boolean }>(({ theme, extended }) => ({
   color: theme.palette.grey[500],
 
   [theme.breakpoints.up('md')]: {
-    position: 'absolute',
+    position: extended ? 'relative' : 'absolute',
     top: 0,
     left: 0,
   },
@@ -70,7 +80,16 @@ const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
   },
 }));
 
-const OverviewCard = ({ title, image, rank, weeksOnTheList, contributor, description, buyLinks }: OverviewCardProps) => {
+const OverviewCard = ({
+  title,
+  image,
+  rank,
+  weeksOnTheList,
+  contributor,
+  description,
+  buyLinks,
+  extended,
+}: OverviewCardProps) => {
   const [open, setOpen] = useState(false);
 
   const handleTooltipClose = () => {
@@ -82,44 +101,45 @@ const OverviewCard = ({ title, image, rank, weeksOnTheList, contributor, descrip
   };
 
   return (
-    <Card direction={{ xs: 'row', md: 'column' }}>
-      <BookRank variant="h5" component="span">{rank}</BookRank>
-      <BookImage src={image} alt={title} />
-      <Box>
+    <Card direction={{ xs: 'row', md: 'column' }} extended={extended}>
+      <BookRank variant="h5" component="span" extended={extended}>{rank}</BookRank>
+      <BookImage src={image} alt={title} extended={extended} />
+      <Stack height="100%">
         <Typography display={{ xs: 'none', md: 'block' }}>{weeksOnTheList}</Typography>
         <Typography variant="h6" component="h3" fontWeight={600}>{title}</Typography>
         <Typography variant="subtitle1" component="span">{contributor}</Typography>
         <Typography display={{ xs: 'none', md: 'block' }} variant="body1">{description}</Typography>
-      </Box>
-      <ClickAwayListener onClickAway={handleTooltipClose}>
-        <Box marginTop="auto" display={{ xs: 'none', md: 'block' }}>
-          <HtmlTooltip
-            PopperProps={{
-              disablePortal: true,
-            }}
-            arrow
-            onClose={handleTooltipClose}
-            open={open}
-            disableFocusListener
-            disableHoverListener
-            disableTouchListener
-            title={
-              <Stack>
-                {buyLinks.map((link, index) => (
-                  <Link key={index} href={link.url} target="_blank" display="block">{link.name}</Link>
-                ))}
-              </Stack>
-            }
-          >
-            <Button
-              variant="contained"
-              size="small"
-              onClick={handleTooltipOpen}
-              endIcon={<ArrowDropDownIcon fontSize="small" />}
-            >Buy</Button>
-          </HtmlTooltip>
-        </Box>
-      </ClickAwayListener>
+
+        <ClickAwayListener onClickAway={handleTooltipClose}>
+          <Box marginTop="auto" display={{ xs: 'none', md: 'block' }} paddingTop={2}>
+            <HtmlTooltip
+              PopperProps={{
+                disablePortal: true,
+              }}
+              arrow
+              onClose={handleTooltipClose}
+              open={open}
+              disableFocusListener
+              disableHoverListener
+              disableTouchListener
+              title={
+                <Stack>
+                  {buyLinks.map((link, index) => (
+                    <Link key={index} href={link.url} target="_blank" display="block">{link.name}</Link>
+                  ))}
+                </Stack>
+              }
+            >
+              <Button
+                variant="contained"
+                size="small"
+                onClick={handleTooltipOpen}
+                endIcon={<ArrowDropDownIcon fontSize="small" />}
+              >Buy</Button>
+            </HtmlTooltip>
+          </Box>
+        </ClickAwayListener>
+      </Stack>
     </Card>
   )
 }
