@@ -22,6 +22,11 @@ const CompleteList = () => {
     queryKey: ['complete-list', currentDate, listName],
     queryFn: async () => {
       const response = await fetch(`${import.meta.env.VITE_BASE_URL}/lists/${currentDate}/${listName}.json?api-key=${apiKey}`);
+      
+      if (!response.ok || response.status !== 200) {
+        throw new Error(`Request failed with status ${response.status}`);
+      }
+      
       return await response.json();
     },
   });

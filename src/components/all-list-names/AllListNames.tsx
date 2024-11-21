@@ -19,6 +19,11 @@ const AllListNames = () => {
     queryKey: ['lists'],
     queryFn: async () => {
       const response = await fetch(`${endpoint}?api-key=${apiKey}`);
+      
+      if (!response.ok || response.status !== 200) {
+        throw new Error(`Request failed with status ${response.status}`);
+      }
+
       const json = await response.json();
       return json;
     },

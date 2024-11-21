@@ -21,6 +21,11 @@ const OverviewGrid = () => {
     queryKey: ['overview', currentDate],
     queryFn: async () => {
       const response = await fetch(`${overviewEndpoint}?api-key=${apiKey}${currentDate ? `&published_date=${currentDate}` : ''}`);
+      
+      if (!response.ok || response.status !== 200) {
+        throw new Error(`Request failed with status ${response.status}`);
+      }
+      
       return await response.json();
     },
   });

@@ -1,5 +1,3 @@
-import { useSearchParams } from 'react-router-dom';
-
 import { styled } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -42,12 +40,10 @@ const BorderedGrid = styled(Grid, {
 }));
 
 const OverviewList = ({ name, listKey, books, displayAsAFullList }: OverviewListProps) => {
-  const [searchParams] = useSearchParams();
-
   return (
     <Stack gap={2}>
       {!displayAsAFullList && (
-        <Link href={`/${listKey}${searchParams.get('date') ? `?date=${searchParams.get('date')}` : ''}`} width="fit-content">
+        <Link href={`/${listKey}`} width="fit-content">
           <Stack flexDirection="row" alignItems="center">
             <Typography component="h2" variant="h6" sx={{ fontFamily: 'inherit' }}>{name}</Typography>
             <ChevronRightIcon fontSize='small' />
