@@ -62,7 +62,7 @@ const OverviewGrid = () => {
           isLast={!data?.results?.next_published_date}
         />
       )}
-      <Stack gap={5}>
+      <Stack gap={{ xs: 5, md: 7 }}>
         {isPending ? <OverviewGridSkeleton /> :
           data.results.lists.map((list: List) => (
             <OverviewList

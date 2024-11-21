@@ -11,6 +11,7 @@ import PageHeader from '@/components/page-header/PageHeader';
 import DateFilter from '@/components/date-filter/DateFilter';
 import OverviewList from "@/components/overview-list/OverviewList";
 import OverviewGridSkeleton from '@/components/overview-grid/OverviewGridSkeleton';
+import AllListNames from '@/components/all-list-names/AllListNames';
 
 const CompleteList = () => {
   const { listName } = useParams<{ listName: string }>();
@@ -69,6 +70,8 @@ const CompleteList = () => {
           />
         )}
 
+        <AllListNames />
+
         <Stack gap={2}>
           {(data?.results?.published_date) && (
             <DateFilter
@@ -78,6 +81,7 @@ const CompleteList = () => {
               isLast={!data?.results?.next_published_date}
             />
           )}
+
           <Stack gap={5}>
             {isPending ? <OverviewGridSkeleton /> :
               (

@@ -1,6 +1,6 @@
 import { styled } from '@mui/material/styles';
 import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
+import Typography, { TypographyProps } from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import Grid, { Grid2Props } from '@mui/material/Grid2';
 
@@ -39,21 +39,29 @@ const BorderedGrid = styled(Grid, {
   },
 }));
 
+const Heading = styled(Typography)<TypographyProps>(({ theme }) => ({
+    fontSize: theme.typography.pxToRem(20),
+
+    [theme.breakpoints.up('md')]: {
+    fontSize: theme.typography.pxToRem(24),
+  },
+}));
+
 const OverviewList = ({ name, listKey, books, displayAsAFullList }: OverviewListProps) => {
   return (
     <Stack gap={2}>
       {!displayAsAFullList && (
         <Link href={`/${listKey}`} width="fit-content">
           <Stack flexDirection="row" alignItems="center">
-            <Typography component="h2" variant="h6" sx={{ fontFamily: 'inherit' }}>{name}</Typography>
-            <ChevronRightIcon fontSize='small' />
+            <Heading component="h2" variant="h6" sx={{ fontFamily: 'inherit' }}>{name}</Heading>
+            <ChevronRightIcon fontSize="medium" />
           </Stack>
         </Link>
       )}
 
-      <BorderedGrid container spacing={2} displayAsAFullList={displayAsAFullList}>
+      <BorderedGrid container spacing={{ xs: 3, md: 2 }} displayAsAFullList={displayAsAFullList}>
         {books && books.map((book, index) => (
-          <Grid size={{ xs: 12, md: displayAsAFullList ? 12 : 2.4 }} key={index}>
+          <Grid size={{ xs: 12, md: displayAsAFullList ? 6 : 2.4 }} key={index}>
             <OverviewCard
               title={book.title}
               image={book.book_image}

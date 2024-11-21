@@ -36,7 +36,7 @@ const DateFilter = ({ value, onPrev, onNext, isLast }: DateFilterProps) => {
   const formattedCurrent = `${months[parseInt(month, 10) - 1]} ${parseInt(day, 10)}, ${year}`;
 
   return (
-    <Container>
+    <Container title="Published Date">
       <IconButton aria-label="previous week" onClick={onPrev}>
         <ChevronLeftIcon />
       </IconButton>

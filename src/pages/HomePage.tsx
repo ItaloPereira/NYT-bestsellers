@@ -23,10 +23,11 @@ const HomePage = () => {
               showShareButton={true}
             />
 
+            <AllListNames />
+            
             <OverviewGrid />
           </Stack>
 
-          <AllListNames />
         </Stack>
       </Container>
     </main>
