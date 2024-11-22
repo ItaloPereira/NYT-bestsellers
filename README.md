@@ -52,6 +52,16 @@ To run this project locally, follow these steps:
 - Node.js version: `v22.11.0`
 - Package manager: npm or yarn
 
+### Setup Environment Variables
+Before starting the project, create a `.env` file in the root of the project and add the following variables:
+
+```env
+VITE_API_KEY=o56LFxogG3QUgJNt31OCR4jmYH6qVepY
+VITE_BASE_URL=https://api.nytimes.com/svc/books/v3
+```
+
+These environment variables are used to configure the API key and base URL for the New York Times Books API. Few free to create your own https://developer.nytimes.com/docs/books-product/1/overview
+
 ### Installation
 1. Clone the repository:
    ```bash
